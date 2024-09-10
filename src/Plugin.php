@@ -248,6 +248,12 @@ class Plugin extends \TotalPollVendors\TotalCore\Foundation\Plugin {
 			                                $this->container->get( 'log.repository' ),
 			                                $this->container->get( 'polls.repository' ) );
 		} );
+		// Admin ajax (analytics)
+		$this->container->share( 'admin.ajax.analytics', function () {
+			return new Admin\Ajax\Analytics( $this->container->get( 'http.request' ),
+			                                $this->container->get( 'log.repository' ),
+			                                $this->container->get( 'polls.repository' ) );
+		} );
 
 		// Admin ajax (modules)
 		$this->container->share( 'admin.ajax.modules', function () {
@@ -299,6 +305,11 @@ class Plugin extends \TotalPollVendors\TotalCore\Foundation\Plugin {
 		// Insights
 		$this->container->share( 'admin.pages.insights', function () {
 			return new Admin\Insights\Page( $this->container->get( 'http.request' ), $this->container->get( 'env' ) );
+		} );
+
+		// Analytics
+		$this->container->share( 'admin.pages.analytics', function () {
+			return new Admin\Analytics\Page( $this->container->get( 'http.request' ), $this->container->get( 'env' ) );
 		} );
 
 		// Log
@@ -623,9 +634,9 @@ class Plugin extends \TotalPollVendors\TotalCore\Foundation\Plugin {
 									esc_html__( '{{label}} does not allow this value.', 'totalpoll' ),
 								],
 							],
-							'You must vote for at least {{minimum}} choice.' => [
+							'You must select an option before clicking VOTE.' => [
 								'translations' => [
-									esc_html__( 'You must vote for at least {{minimum}} choice.', 'totalpoll' ),
+									esc_html__( 'You must select an option before clicking VOTE.', 'totalpoll' ),
 									esc_html__( 'You must vote for at least {{minimum}} choices.', 'totalpoll' ),
 								],
 							],

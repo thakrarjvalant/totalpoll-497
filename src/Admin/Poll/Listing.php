@@ -181,6 +181,7 @@ class Listing {
 		if ( current_user_can( 'edit_poll', $post->ID ) ):
 			$actions['entries']  = sprintf( '<a href="%s">%s</a>', esc_attr( wp_nonce_url( admin_url( "edit.php?post_type={$pollPostType}&page=entries&poll={$post->ID}" ) ) ), esc_html( esc_html__( 'Entries', 'totalpoll' ) ) );
 			$actions['insights'] = sprintf( '<a href="%s">%s</a>', esc_attr( wp_nonce_url( admin_url( "edit.php?post_type={$pollPostType}&page=insights&poll={$post->ID}" ) ) ), esc_html( esc_html__( 'Insights', 'totalpoll' ) ) );
+			$actions['analytics'] = sprintf( '<a href="%s">%s</a>', esc_attr( wp_nonce_url( admin_url( "edit.php?post_type={$pollPostType}&page=analytics&poll={$post->ID}" ) ) ), esc_html( esc_html__( 'Analytics', 'totalpoll' ) ) );
 		endif;
 
 		if ( current_user_can( 'manage_options' ) ):

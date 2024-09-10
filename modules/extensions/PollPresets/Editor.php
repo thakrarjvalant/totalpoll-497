@@ -249,11 +249,21 @@ class Editor {
 
 		// Insights
 
-		
+
 		// Some variables for frontend controller
 		wp_localize_script(
 			'totalpoll-admin-poll-editor',
 			'TotalPollInsights',
+			[ 'pollId' => $this->preset->getId() ]
+		);
+
+		// Analytics
+
+
+		// Some variables for frontend controller
+		wp_localize_script(
+			'totalpoll-admin-poll-editor',
+			'TotalPollAnalytics',
 			[ 'pollId' => $this->preset->getId() ]
 		);
 		

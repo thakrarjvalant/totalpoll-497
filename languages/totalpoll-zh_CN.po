@@ -819,9 +819,9 @@ msgid "All questions must be answered."
 msgstr "所有的问题必须回答."
 
 #: src/Poll/Commands/CountVote.php:66
-msgid "You must vote for at least {{minimum}} choice."
+msgid "You must select an option before clicking VOTE"
 msgid_plural "You must vote for at least {{minimum}} choices."
-msgstr[0] "您必须投至少{{minimum}}个选项."
+msgstr[0] "您必须在单击“投票”之前选择一个选项."
 
 #: src/Poll/Commands/CountVote.php:69
 msgid "You can vote for up to {{maximum}} choice."

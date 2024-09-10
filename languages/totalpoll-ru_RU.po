@@ -839,9 +839,9 @@ msgid "All questions must be answered."
 msgstr "На все вопросы нужно ответить."
 
 #: src/Poll/Commands/CountVote.php:66
-msgid "You must vote for at least {{minimum}} choice."
+msgid "You must select an option before clicking VOTE."
 msgid_plural "You must vote for at least {{minimum}} choices."
-msgstr[0] "Вы должны проголосовать хотя бы за {{minimum}} вариант."
+msgstr[0] "Прежде чем нажать «ГОЛОСОВАТЬ», необходимо выбрать вариант."
 msgstr[1] "Вы должны проголосовать хотя бы за {{minimum}} вариантов."
 msgstr[2] "Вы должны проголосовать хотя бы за {{minimum}} вариантов."
 

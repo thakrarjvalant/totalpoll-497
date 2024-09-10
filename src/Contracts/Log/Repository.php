@@ -108,5 +108,10 @@ interface Repository {
 	 * @since 4.0.5
 	 */
 	public function deleteOrphaned();
-
+	public function exportUserData();
+	/**
+	  * Getting use choices from log table
+	  * @return array
+	*/
+	public function choicePerUser($where);
 }

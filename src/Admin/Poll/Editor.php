@@ -238,6 +238,16 @@ class Editor {
 			'TotalPollInsights',
 			[ 'pollId' => $this->poll->getId() ]
 		);
+
+		// Analytics
+
+		
+		// Some variables for frontend controller
+		wp_localize_script(
+			'totalpoll-admin-poll-editor',
+			'TotalPollAnalytics',
+			[ 'pollId' => $this->poll->getId() ]
+		);
 		
 	}
 
@@ -435,6 +445,15 @@ class Editor {
 				'url'   => add_query_arg( [
 					                          'post_type' => TP_POLL_CPT_NAME,
 					                          'page'      => 'insights',
+					                          'poll'      => $this->post->ID,
+				                          ], admin_url( 'edit.php' ) ),
+			];
+			$actions['analytics'] = [
+				'label' => esc_html__( 'Analytics', 'totalpoll' ),
+				'icon'  => 'chart-area',
+				'url'   => add_query_arg( [
+					                          'post_type' => TP_POLL_CPT_NAME,
+					                          'page'      => 'analytics',
 					                          'poll'      => $this->post->ID,
 				                          ], admin_url( 'edit.php' ) ),
 			];

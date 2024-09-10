@@ -967,9 +967,9 @@ msgid "{{label}} does not allow this value."
 msgstr "{{label}} bu değere izin vermiyor."
 
 #: Admin/Options/Page.php:269 Poll/Commands/CountVote.php:135
-msgid "You must vote for at least {{minimum}} choice."
+msgid "You must select an option before clicking VOTE."
 msgid_plural "You must vote for at least {{minimum}} choices."
-msgstr[0] "En az {{minimum}} seçim için oy vermelisiniz."
+msgstr[0] "OY VER'e tıklamadan önce bir seçenek seçmelisiniz"
 msgstr[1] "En az {{minimum}} seçim için oy vermelisiniz."
 
 #: Admin/Options/Page.php:270

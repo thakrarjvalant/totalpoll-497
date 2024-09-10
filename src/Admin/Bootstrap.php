@@ -89,6 +89,11 @@ class Bootstrap {
 				'name'       => esc_html__( 'Insights', 'totalpoll' ),
 				'capability' => 'edit_polls',
 			],
+			'analytics'       => [
+				'title'      => esc_html__( 'Analytics', 'totalpoll' ),
+				'name'       => esc_html__( 'Analytics', 'totalpoll' ),
+				'capability' => 'edit_polls',
+			],
 			'log'            => [
 				'title'      => esc_html__( 'Log', 'totalpoll' ),
 				'name'       => esc_html__( 'Logs', 'totalpoll' ),
@@ -206,7 +211,17 @@ class Bootstrap {
 		                   "{$baseUrl}assets/dist/styles/vendor/datetimepicker.css",
 		                   [],
 		                   $assetsVersion );
-		wp_add_inline_script( 'angular', sprintf("var totalpollAjaxURL = '%s'", esc_js(wp_nonce_url( admin_url( 'admin-ajax.php' ), 'totalpoll' ))) );
+	    wp_register_script('jspdf',
+	    					"{$baseUrl}assets/dist/scripts/vendor/pdf/jspdf.js", 
+	    					[ 'jquery' ], 
+	    					$assetsVersion);
+	    wp_register_script('html2canvas', "{$baseUrl}assets/dist/scripts/vendor/pdf/html2canvas.js", [ 'jquery' ], $assetsVersion);
+		wp_register_script('analytics-custom', 
+							"{$baseUrl}assets/dist/scripts/analytics-custom.js", 
+							[ 'jquery' ], 
+							$assetsVersion);
+		wp_add_inline_script( 'angular', 
+							sprintf("var totalpollAjaxURL = '%s'", esc_js(wp_nonce_url( admin_url( 'admin-ajax.php' ), 'totalpoll' ))) );
 		/**
 		 * @asset-style totalpoll-admin-totalcore
 		 */
@@ -332,6 +347,31 @@ class Bootstrap {
 			[ 'jquery-datetimepicker', 'totalpoll-admin-totalcore' ],
 			$assetsVersion
 		);
+
+
+		// ------------------------------
+		// Analytics
+		// ------------------------------
+		/**
+		 * @asset-script totalpoll-admin-analytics
+		 */
+		wp_register_script(
+			'totalpoll-admin-analytics',
+			"{$baseUrl}assets/dist/scripts/analytics.js",
+			[ 'jquery-datetimepicker', 'angular', 'angular-resource', 'analytics-custom','platform.js', 'jspdf', 'html2canvas' ,'chart.js' ],
+			$assetsVersion
+		);
+
+		/**
+		 * @asset-style totalpoll-admin-analytics
+		 */
+		wp_register_style(
+			'totalpoll-admin-analytics',
+			"{$baseUrl}assets/dist/styles/admin-analytics.css",
+			[ 'jquery-datetimepicker', 'totalpoll-admin-totalcore' ],
+			$assetsVersion
+		);
+
 
 		// ------------------------------
 		// Log

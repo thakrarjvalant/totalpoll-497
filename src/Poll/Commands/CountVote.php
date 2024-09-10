@@ -135,7 +135,7 @@ class CountVote extends Command {
 				$choices     = isset( $userChoices[ $questionUid ] ) ? (array) $userChoices[ $questionUid ] : [];
 
 				if ( count( $choices ) < $minSelected ):
-					$message = _n( 'You must vote for at least {{minimum}} choice.', 'You must vote for at least {{minimum}} choices.', $minSelected, 'totalpoll' );
+					$message = _n( 'You must select an option before clicking VOTE.', 'You must vote for at least {{minimum}} choices.', $minSelected, 'totalpoll' );
 					throw new ErrorException( Strings::template( $message, [ 'minimum' => $minSelected ] ) );
 				elseif ( count( $choices ) > $maxSelected ):
 					$message = _n( 'You can vote for up to {{maximum}} choice.', 'You can vote for up to {{maximum}} choices.', $maxSelected, 'totalpoll' );

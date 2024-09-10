@@ -31,7 +31,13 @@ class Bootstrap {
 		if ( TotalPoll()->option( 'general.structuredData.enabled' ) ):
 			TotalPoll( 'decorators.structuredData' );
 		endif;
-
+		if (
+            isset($_REQUEST['post_type']) && $_REQUEST['post_type'] == 'poll'	
+            && isset($_REQUEST['page']) && $_REQUEST['page'] == 'analytics'	
+            && isset($_REQUEST['action']) && $_REQUEST['action'] == 'download'	
+            ) {	
+            TotalPoll('log.repository')->exportUserData();	
+        }
 		// Requests
 		if ( isset( $_REQUEST['totalpoll']['action'] ) ):
 			// Capture actions

@@ -1972,7 +1972,7 @@ msgstr ""
 
 #: Admin/Poll/views/questions/question.php:37
 #, fuzzy
-#| msgid "You must vote for at least {{minimum}} choice."
+#| msgid "You must select an option before clicking VOTE."
 #| msgid_plural "You must vote for at least {{minimum}} choices."
 msgid "User must vote at least for {{minimum}} choice(s)."
 msgstr "आपको कम से कम  {{minimum}} विकल्प के लिए वोट देना होगा।"

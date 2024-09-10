@@ -48,7 +48,7 @@ msgstr[4] "%s صوت"
 msgstr[5] "%s صوت"
 
 #: src/Poll/Commands/CountVote.php:40
-msgid "You must vote for at least {{minimum}} choice."
+msgid "You must select an option before clicking VOTE"
 msgid_plural "You must vote for at least {{minimum}} choices."
 msgstr[0] "يجب التصويت لخيار واحد على الأقل"
 msgstr[1] "يجب التصويت لخيارين على الأقل"

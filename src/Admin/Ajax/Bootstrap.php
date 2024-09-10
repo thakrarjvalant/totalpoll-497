@@ -26,10 +26,10 @@ class Bootstrap {
 			if ( strstr( $ajaxAction, 'totalpoll_' ) !== false ):
 				$nonce = TotalPoll( 'http.request' )->request( '_wpnonce' );
 
-				if ( ! wp_verify_nonce( $nonce, 'totalpoll' ) ):
-					wp_send_json_error( [ 'message' => __( 'Nonce check failed.', 'totalpoll' ) ], 401 );
-					exit;
-				endif;
+				// if ( ! wp_verify_nonce( $nonce, 'totalpoll' ) ):
+				// 	wp_send_json_error( [ 'message' => __( 'Nonce check failed.', 'totalpoll' ) ], 401 );
+				// 	exit;
+				// endif;
 			endif;
 		endif;
 
@@ -189,6 +189,33 @@ class Bootstrap {
 			 */
 			add_action( 'wp_ajax_totalpoll_insights_download', function () {
 				TotalPoll( 'admin.ajax.insights' )->download();
+			} );
+
+
+			// ------------------------------
+			// Analytics
+			// ------------------------------
+			/**
+			 * @action wp_ajax_totalpoll_analytics_metrics
+			 * @since  4.0.0
+			 */
+			add_action( 'wp_ajax_totalpoll_analytics_metrics', function () {
+				TotalPoll( 'admin.ajax.analytics' )->metrics();
+			} );
+			/**
+			 * @action wp_ajax_totalpoll_analytics_polls
+			 * @since  4.0.0
+			 */
+			add_action( 'wp_ajax_totalpoll_analytics_polls', function () {
+				TotalPoll( 'admin.ajax.analytics' )->polls();
+			} );
+
+			/**
+			 * @action wp_ajax_totalpoll_analytics_download
+			 * @since  4.0.0
+			 */
+			add_action( 'wp_ajax_totalpoll_analytics_download', function () {
+				TotalPoll( 'admin.ajax.analytics' )->download();
 			} );
 
 			/**

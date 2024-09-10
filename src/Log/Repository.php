@@ -410,4 +410,109 @@ class Repository implements RepositoryContract {
 
 		return (bool) $this->database->query( $query );
 	}
+    /**
+     * Export User Data
+     *
+     * @return csv
+    */
+    public function exportUserData()
+    {
+        global $wpdb;
+        $usermeta = $wpdb->usermeta;
+        $postmeta = $wpdb->postmeta;
+        $posts = $wpdb->posts;
+        $query = "SELECT
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'blueprintRef' limit 1) as 'Blueprint Ref',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'role' limit 1) as 'Role',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'last_name' limit 1) as 'Last Name',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'first_name' limit 1) as 'First Name',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'other_names' limit 1) as 'Preferred Name',
+            u.user_email AS email,
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'phone' limit 1) as 'phone',
+            u.user_email AS email,
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'address1' limit 1) as 'Address1',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'address2' limit 1) as 'Address2',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'address3' limit 1) as 'Address3',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'address4' limit 1) as 'Address4',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'address5' limit 1) as 'Address5',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'address6' limit 1) as 'Address6',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'country' limit 1) as 'Country',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'DateOfBirth' limit 1) as 'Date of Birth',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'NINumber' limit 1) as 'National Insurance Number',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'workdayNumber' limit 1) as 'Workday Employee Number',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'share_A_ordinary' limit 1) as 'Share A Ordinary',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'share_A_ordinary_converted' limit 1) as 'Share A Ordinary Converted',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'share_D_ordinary' limit 1) as 'Share D Ordinary',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'share_E_ordinary' limit 1) as 'Share E Ordinary',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'share_F_ordinary' limit 1) as 'Share F Ordinary',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'eligible_A_shares' limit 1) as 'Eligible A Shares',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res1_holding' limit 1) as 'Res1 Holding',
+            
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res1_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 1 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res2_holding' limit 1) as 'Res2 Holding',
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id  left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res2_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 2 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res3_holding' limit 1) as 'Res3 Holding',
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res3_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 3 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res4_holding' limit 1) as 'Res4 Holding',
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res4_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 4 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res5_holding' limit 1) as 'Res5 Holding',
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res5_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 5 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res6_holding' limit 1) as 'Res6 Holding',
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res6_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 6 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res7_holding' limit 1) as 'Res7 Holding',
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res7_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 7 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res8_holding' limit 1) as 'Res8 Holding',
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res8_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 8 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res9_holding' limit 1) as 'Res9 Holding',
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res9_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 9 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'res10_holding' limit 1) as 'Res10 Holding',
+            (select JSON_UNQUOTE(JSON_EXTRACT(details,'$.choices[0]')) from `{$postmeta}` pm left join `wp_totalpoll_log` tpl on tpl.poll_id = pm.post_id left join `{$posts}` p on p.ID = tpl.poll_id where p.post_status <> 'trash' and pm.meta_value = 'res10_holding' and pm.meta_key='resolution_type' and tpl.action='vote' and status='accepted' and tpl.user_id = u.id limit 1) as 'Resolution 10 Vote',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'maxsell_A_ordinary' limit 1) as 'A Ordinary Max Sell',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'sell_A_ordinary' limit 1) as 'A Ordinary Sell',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'maxsell_A_ordinary_converted' limit 1) as 'A Ordinary (Converted) Max Sell',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'sell_A_ordinary_converted' limit 1) as 'A Ordinary (Converted) Sell',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'bankacc' limit 1) as 'Bank Account Details',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'buy_A_ordinary' limit 1) as 'A Ordinary Buy',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'shares_Value' limit 1) as 'Shares Value',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'stamp_Duty' limit 1) as 'Stamp Duty',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'total_Due' limit 1) as 'Total Due',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'proceeds_Tranche1' limit 1) as 'Proceeds Tranche 1',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'proceeds_Tranche2' limit 1) as 'Proceeds Tranche 2',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'proceeds_Tranche3' limit 1) as 'Proceeds Tranche 3',
+            (select meta_value from `{$usermeta}` where user_id = u.id and meta_key = 'total_Proceeds' limit 1) as 'Total Proceeds'
+        FROM wp_users u";
+
+        $data_ary = $this->database->get_results($query, ARRAY_A);
+
+        if (count($data_ary) > 0) {
+            $i = 0;
+            $csv_data = '';
+            foreach ($data_ary as $data) {
+                if ($i == 0) {
+                    $csv_data .= implode(',', array_keys($data))."\n";
+                }
+                $data = array_map(function ($v) {
+                    return '"' . str_replace('"', '""', $v) . '"';
+                }, $data);
+
+
+                $csv_data .= implode(',', $data)."\n";
+                $i++;
+            }
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment;filename="users_resolution.csv"');
+            echo $csv_data;
+            wp_die();
+
+        }
+    }
+    /**
+      * Getting use choices from log table
+      * @return array
+    */
+    public function choicePerUser($where)
+    {
+        $query = "SELECT `choices` FROM `wp_totalpoll_log` {$where}";
+        return $this->database->get_results($query, ARRAY_A);
+    }
 }

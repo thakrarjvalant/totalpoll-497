@@ -2077,7 +2077,7 @@ msgstr ""
 
 #: Admin/Poll/views/questions/question.php:37
 #, fuzzy
-#| msgid "You must vote for at least {{minimum}} choice."
+#| msgid "You must select an option before clicking VOTE."
 #| msgid_plural "You must vote for at least {{minimum}} choices."
 msgid "User must vote at least for {{minimum}} choice(s)."
 msgstr "少なくとも{{minimum}}の選択肢に投票してください。"
@@ -2515,9 +2515,9 @@ msgid "All questions must be answered."
 msgstr "すべての質問に答えてください。"
 
 #: Poll/Commands/CountVote.php:130
-msgid "You must vote for at least {{minimum}} choice."
+msgid "You must select an option before clicking VOTE."
 msgid_plural "You must vote for at least {{minimum}} choices."
-msgstr[0] "少なくとも{{minimum}}の選択肢に投票してください。"
+msgstr[0] "「投票」をクリックする前にオプションを選択する必要があります"
 
 #: Poll/Commands/CountVote.php:133
 msgid "You can vote for up to {{maximum}} choice."
